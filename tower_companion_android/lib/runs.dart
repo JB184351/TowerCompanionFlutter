@@ -73,7 +73,13 @@ class Runs extends StatelessWidget {
           backgroundColor: Colors.black,
         ),
         backgroundColor: Colors.black,
-        body: TowerRunHighlightWidget(run: runs[0]),
+        body: ListView.builder(
+          padding: const EdgeInsets.all(8),
+          itemCount: runs.length,
+          itemBuilder: (BuildContext context, int index) {
+            return TowerRunHighlightWidget(run: runs[index]);
+          },
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: addTowerRun,
           tooltip: 'Add Tower Run',
