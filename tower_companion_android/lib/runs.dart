@@ -11,7 +11,7 @@ class Runs extends StatelessWidget {
     TowerRun(
         scoutName: "DR_JRB_",
         weapon: Weapon(
-            "Doombringer",
+            "Dreadbound",
             AltFire.trackerSwarm,
             [
               Trait(
@@ -38,7 +38,7 @@ class Runs extends StatelessWidget {
     TowerRun run = TowerRun(
         scoutName: "DR_JRB_",
         weapon: Weapon(
-            "Doombringer",
+            "Dreadbound",
             AltFire.trackerSwarm,
             [
               Trait(
