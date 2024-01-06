@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:tower_companion_android/models/tower_run.dart';
 import 'package:intl/intl.dart'; // for date format
-import 'package:intl/date_symbol_data_local.dart';
 import 'colors.dart';
 
 class TowerRunHighlightWidget extends StatefulWidget {

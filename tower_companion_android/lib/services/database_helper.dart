@@ -1,19 +1,30 @@
-import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:tower_companion_android/runs.dart';
-import 'package:tower_companion_android/services/database_helper.dart';
 import 'dart:async';
-import 'package:path/path.dart';
 import 'package:flutter/widgets.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:tower_companion_android/models/Weapon.dart';
+import 'package:tower_companion_android/models/artifact.dart';
+import 'package:tower_companion_android/models/combat.dart';
+import 'package:tower_companion_android/models/explorer.dart';
+import 'package:tower_companion_android/models/malfunction.dart';
+import 'package:tower_companion_android/models/objectives.dart';
+import 'package:tower_companion_android/models/parasite.dart';
+import 'package:tower_companion_android/models/skill.dart';
+import 'package:tower_companion_android/models/stats.dart';
+import 'package:tower_companion_android/models/tower_run.dart';
 
-void main() async {
-  const int _version = 1;
-  const String _dbName = "tower_run.db";
+class DatabaseHelper {
+  static const int _version = 1;
+  static const String _dbName = "tower_run.db";
+  // DatabaseHelper._();
+  // static final DatabaseHelper db = DatabaseHelper._();
 
-  WidgetsFlutterBinding.ensureInitialized();
+  static Future<Database> _getDB() async {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  openDatabase(join(await getDatabasesPath(), _dbName),
-      onCreate: ((db, version) async => await db.execute("""
+    return openDatabase(join(await getDatabasesPath(), _dbName),
+        onCreate: ((db, version) async => await db.execute("""
       CREATE TABLE Altfire(
           id INT PRIMARY KEY AUTO_INCREMENT,
           name TEXT,
@@ -120,20 +131,54 @@ void main() async {
       FOREIGN KEY (objectivesId) REFERENCES Objectives(id)
 );
         """)), version: _version);
-  runApp(const MyApp());
-}
+  }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  Future<void> insertTowerRun(TowerRun run) async {
+    final db = await _getDB();
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    Runs().loadDb();
+    await db.insert(_dbName, run.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.ignore);
+  }
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Runs(),
-    );
+  Future<List<TowerRun>> runs() async {
+    final db = await _getDB();
+
+    final List<Map<String, dynamic>> maps = await db.query(_dbName);
+
+    return List.generate(maps.length, (i) {
+      return TowerRun(
+          id: maps[i]['id'] as int,
+          scoutName: maps[i]['scoutName'] as String,
+          weapon: maps[i]['weapon'] as Weapon,
+          artifacts: maps[i]['artifacts'] as List<Artifact>,
+          parasites: maps[i]['parasites'] as List<Parasite>,
+          stats: maps[i]['stats'] as Stats,
+          malfunctions: maps[i]['malfunctions'] as List<Malfunction>,
+          score: maps[i]['score'] as int,
+          finalMultiplier: maps[i]['finalMutliplier'] as double,
+          averageMultiplier: maps[i]['averageMultiplier'] as double,
+          highestMultiplier: maps[i]['highestMultiplier'] as double,
+          phase: maps[i]['phase'] as int,
+          room: maps[i]['room'] as int,
+          platform: maps[i]['platform'] as String,
+          combat: maps[i]['combat'] as Combat,
+          explorer: maps[i]['explorer'] as Explorer,
+          skill: maps[i]['skill'] as Skill,
+          objectives: maps[i]['objectives'] as Objectives,
+          dateStarted: maps[i]['dateStarted'] as DateTime,
+          dateCompleted: maps[i]['dateCompleted'] as DateTime);
+    });
+  }
+
+  Future<void> updateRun(TowerRun run) async {
+    final db = await _getDB();
+
+    await db.update(_dbName, run.toMap(), where: 'id = ?', whereArgs: [run.id]);
+  }
+
+  Future<void> deleteRun(int id) async {
+    final db = await _getDB();
+
+    await db.delete(_dbName, where: 'id = ?', whereArgs: [id]);
   }
 }

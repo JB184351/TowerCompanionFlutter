@@ -7,8 +7,14 @@ import 'combat.dart';
 import 'skill.dart';
 import 'explorer.dart';
 import 'objectives.dart';
+import 'dart:async';
+
+import 'package:flutter/widgets.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 class TowerRun {
+  final int id;
   String scoutName;
   Weapon weapon;
   List<Artifact>? artifacts;
@@ -30,7 +36,8 @@ class TowerRun {
   DateTime dateCompleted;
 
   TowerRun(
-      {required this.scoutName,
+      {required this.id,
+      required this.scoutName,
       required this.weapon,
       this.artifacts,
       this.parasites,
@@ -49,4 +56,53 @@ class TowerRun {
       this.objectives,
       required this.dateStarted,
       required this.dateCompleted});
+
+  factory TowerRun.fromMap(Map<String, dynamic> json) => TowerRun(
+      id: json['id'],
+      scoutName: json['scoutName'],
+      weapon: json['weapon'],
+      artifacts: json['artifacts'],
+      parasites: json['parasites'],
+      stats: json['stats'],
+      malfunctions: json['malfunctions'],
+      score: json['score'],
+      finalMultiplier: json['finalMultiplier'],
+      averageMultiplier: json['averageMultiplier'],
+      highestMultiplier: json['highestMultiplier'],
+      phase: json['phase'],
+      room: json['room'],
+      platform: json['platform'],
+      combat: json['combat'],
+      explorer: json['combat'],
+      skill: json['skill'],
+      objectives: json['objectives'],
+      dateStarted: json['dateStarted'],
+      dateCompleted: json['dateCompleted']);
+
+  Map<String, dynamic> toMap() => {
+        'scoutName': scoutName,
+        'weapon': weapon,
+        'artifacts': artifacts,
+        'parasites': parasites,
+        'stats': stats,
+        'malfunctions': malfunctions,
+        'score': score,
+        'finalMultiplier': finalMultiplier,
+        'averageMultiplier': averageMultiplier,
+        'highestMultiplier': highestMultiplier,
+        'phase': phase,
+        'room': room,
+        'platform': platform,
+        'combat': combat,
+        'explorer': explorer,
+        'skill': skill,
+        'objectives': objectives,
+        'dateStarted': dateStarted,
+        'dateCompleted': dateCompleted
+      };
+
+  @override
+  String toString() {
+    return 'TowerRun(id: $id, scoutName: $scoutName, artifacts: $artifacts, parasites: $parasites, stats: $stats, malfunctions: $malfunctions, score: $score, finalMultiplier: $finalMultiplier, averageMultiplier: $averageMultiplier, highestMultiplier: $highestMultiplier, phase: $phase, room: $room, platform: $platform, combat: $combat, explorer: $explorer, skill: $skill, objectives: $objectives, dateStarted: $dateStarted, dateCompleted: $dateCompleted)';
+  }
 }

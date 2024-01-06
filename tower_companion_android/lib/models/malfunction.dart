@@ -1,3 +1,5 @@
+import 'package:sqflite/sqflite.dart';
+
 enum MalfunctionType { normal, permanent }
 
 class Malfunction {
@@ -36,5 +38,44 @@ class Malfunction {
     ];
 
     return permanentMalfunctions;
+  }
+}
+
+class MalfunctionTable {
+  static const String tableName = "Malfunction";
+
+  static const String columnId = 'id';
+  static const String columnMalfunctionDescription = 'malfunction_description';
+  static const String columnConditionToRemove = 'condition_to_remove';
+  static const String columnMalfunctionType = 'malfunction_type';
+
+  late Database _db;
+
+  MalfunctionTable(Database db) {
+    _db = db;
+    _createTable();
+  }
+
+  void _createTable() async {
+    await _db.execute('''
+      CREATE TABLE IF NOT EXISTS $tableName (
+        $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $columnMalfunctionDescription TEXT,
+        $columnConditionToRemove TEXT,
+        $columnMalfunctionType TEXT
+      )
+    ''');
+
+    Future<void> insertMalfunction(Malfunction malfunction) async {
+      await _db.insert(
+        tableName,
+        {
+          columnMalfunctionDescription: malfunction.malfunctionDescription,
+          columnConditionToRemove: malfunction.conditionToRemove,
+          columnMalfunctionType: malfunction.malfunctionType.toString(),
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
   }
 }

@@ -4,38 +4,18 @@ import 'package:tower_companion_android/models/Trait.dart';
 import 'package:tower_companion_android/models/Weapon.dart';
 import 'package:tower_companion_android/models/stats.dart';
 import 'package:tower_companion_android/models/tower_run.dart';
+import 'package:tower_companion_android/services/database_helper.dart';
 import 'package:tower_companion_android/tower_run_highlight.dart';
 
 class Runs extends StatelessWidget {
-  List<TowerRun> runs = [
-    TowerRun(
-        scoutName: "DR_JRB_",
-        weapon: Weapon(
-            "Dreadbound",
-            AltFire.trackerSwarm,
-            [
-              Trait(
-                  name: "Expanding Shards",
-                  traitDescription: "Shards are expanding",
-                  level: 3)
-            ],
-            45),
-        stats: Stats(50.0, 40.0, 30.0, -5.0),
-        score: 20000000,
-        finalMultiplier: 90.0,
-        averageMultiplier: 75.0,
-        highestMultiplier: 100.0,
-        phase: 13,
-        room: 15,
-        platform: "PS5",
-        dateStarted: DateTime.now(),
-        dateCompleted: DateTime.now())
-  ];
+  var db = DatabaseHelper();
+  List<TowerRun> runs = [];
   Runs({super.key});
 
   void addTowerRun() {
     //TODO: Add code to let user add a TowerRun
     TowerRun run = TowerRun(
+        id: 1,
         scoutName: "DR_JRB_",
         weapon: Weapon(
             "Dreadbound",
@@ -58,7 +38,12 @@ class Runs extends StatelessWidget {
         dateStarted: DateTime.now(),
         dateCompleted: DateTime.now());
 
-    runs.add(run);
+    DatabaseHelper().insertTowerRun(run);
+    print("run added");
+  }
+
+  void loadDb() async {
+    runs = await DatabaseHelper().runs();
   }
 
   @override
