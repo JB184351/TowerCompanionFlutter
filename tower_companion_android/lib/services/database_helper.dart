@@ -27,7 +27,8 @@ class DatabaseHelper {
       );
 """;
 
-  static const traitTable = """  CREATE TABLE Trait 
+  static const traitTable = """  
+      CREATE TABLE Trait 
       (
           id INT PRIMARY,
           name TEXT,
@@ -146,7 +147,7 @@ class DatabaseHelper {
 );
         """;
 
-  static Future<Database> _getDB() async {
+  Future<Database> _getDB() async {
     WidgetsFlutterBinding.ensureInitialized();
 
     return await openDatabase(join(await getDatabasesPath(), _dbName),
