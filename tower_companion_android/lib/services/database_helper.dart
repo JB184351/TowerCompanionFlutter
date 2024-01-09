@@ -17,30 +17,28 @@ import 'package:tower_companion_android/models/tower_run.dart';
 class DatabaseHelper {
   static const int _version = 1;
   static const String _dbName = "tower_run.db";
-  // DatabaseHelper._();
-  // static final DatabaseHelper db = DatabaseHelper._();
-
-  static Future<Database> _getDB() async {
-    WidgetsFlutterBinding.ensureInitialized();
-
-    return openDatabase(join(await getDatabasesPath(), _dbName),
-        onCreate: ((db, version) async => await db.execute("""
-      CREATE TABLE Altfire(
-          id INT PRIMARY KEY AUTO_INCREMENT,
+  static const altFireTable = """
+      CREATE TABLE Altfire 
+      (
+          id INT PRIMARY KEY,
           name TEXT,
           level INT NOT NULL,
           altFireDescription TEXT
       );
+""";
 
-      CREATE TABLE Trait (
-          id INT PRIMARY KEY AUTO_INCREMENT,
+  static const traitTable = """  CREATE TABLE Trait 
+      (
+          id INT PRIMARY,
           name TEXT,
           traitDescription TEXT,
           level INT NOT NULL
       );
+      """;
 
+  static const weaponTable = """ 
       CREATE TABLE Weapon (
-        id INT PRIMARY KEY AUTO_INCREMENT,
+        id INT PRIMARY KEY,
         name TEXT NOT NULL,
         altFireId INT,
         traitsId INT,
@@ -49,55 +47,71 @@ class DatabaseHelper {
         FOREIGNKEY (altfireId),
         FOREIGNKEY (traitsId),
       );
+      """;
 
-      CREATE TABLE Artifact (
-        id INT PRIMARY KEY AUTO_INCREMENT,
+  static const artifactTable = """ 
+            CREATE TABLE Artifact (
+        id INT PRIMARY KEY,
         name TEXT NOT NULL,
         artifactDescription TEXT NOT NULL
       );
+      """;
 
-      CREATE TABLE Stat (
+  static const statTable = """ 
+           CREATE TABLE Stat (
         weaponDamge DOUBLE NOT NULL,
         protection DOUBLE NOT NULL,
         proficiencyRate DOUBLE NOT NULL,
         repairEfficiency DOUBLE NOT NULL,
         altFireCooldown DOUBLE NOT NULL
       );
+      """;
 
-      CREATE TABLE Parasite (
+  static const parasiteTable = """
+        CREATE TABLE Parasite (
         name TEXT NOT NULL,
         positiveDescription TEXT NOT NULL,
         negativeDescription TEXT NOT NULL
       );
+ """;
 
-      CREATE TABLE Combat (
+  static const combatTable = """ 
+        CREATE TABLE Combat (
         weakPointKills INT NOT NULL,
         meleeKills INT NOT NULL,
         hostilesEliminated INT NOT NULL,
         malformedHostilesEliminated INT NOT NULL
       );
+ """;
 
-      CREATE TABLE Explorer (
+  static const explorerTable = """ 
+          CREATE TABLE Explorer (
         floorsCleared INT NOT NULL,
         silphiumFound INT NOT NULL,
         obolitesCollected INT NOT NULL,
         calibratorsCollected INT NOT NULL
       );
+ """;
 
-      CREATE TABLE Skill (
+  static const skillTable = """ 
+         CREATE TABLE Skill (
         perfectFloors INT NOT NULL,
         consecutivePerfectFloors INT NOT NULL,
         peakAdrenaline DOUBLE NOT NULL,
         midairMelee INT NOT NULL
       );
+ """;
 
-      CREATE TABLE Objectives (
+  static const objectivesTable = """ 
+          CREATE TABLE Objectives (
         pyliodEliminated INT NOT NULL,
         algosDefeated INT NOT NULL,
         algosFinalFormDefeated INT NOT NULL,
         algosInfinityFormDefeated INT NOT NULL
       );
+ """;
 
+  static const towerRunTable = """
         CREATE TABLE TowerRun (
       id INT PRIMARY KEY AUTO_INCREMENT, -- Assuming an auto-incrementing primary key
       scoutName TEXT NOT NULL,
@@ -130,7 +144,25 @@ class DatabaseHelper {
       FOREIGN KEY (skillId) REFERENCES Skill(id),
       FOREIGN KEY (objectivesId) REFERENCES Objectives(id)
 );
-        """)), version: _version);
+        """;
+
+  static Future<Database> _getDB() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    return await openDatabase(join(await getDatabasesPath(), _dbName),
+        onCreate: (db, version) async {
+      await db.execute(altFireTable);
+      await db.execute(traitTable);
+      await db.execute(weaponTable);
+      await db.execute(artifactTable);
+      await db.execute(statTable);
+      await db.execute(parasiteTable);
+      await db.execute(combatTable);
+      await db.execute(explorerTable);
+      await db.execute(skillTable);
+      await db.execute(objectivesTable);
+      await db.execute(towerRunTable);
+    }, version: _version);
   }
 
   Future<void> insertTowerRun(TowerRun run) async {
