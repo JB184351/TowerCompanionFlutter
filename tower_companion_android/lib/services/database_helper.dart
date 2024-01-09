@@ -176,7 +176,7 @@ class DatabaseHelper {
   Future<List<TowerRun>> runs() async {
     final db = await _getDB();
 
-    final List<Map<String, dynamic>> maps = await db.query(_dbName);
+    final List<Map<String, dynamic>> maps = await db.query("TowerRun");
 
     return List.generate(maps.length, (i) {
       return TowerRun(
