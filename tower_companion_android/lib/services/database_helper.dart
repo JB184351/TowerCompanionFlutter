@@ -30,7 +30,7 @@ class DatabaseHelper {
   static const traitTable = """  
       CREATE TABLE Trait 
       (
-          id INT PRIMARY,
+          id INT PRIMARY KEY,
           name TEXT,
           traitDescription TEXT,
           level INT NOT NULL
@@ -38,15 +38,16 @@ class DatabaseHelper {
       """;
 
   static const weaponTable = """ 
-      CREATE TABLE Weapon (
+      CREATE TABLE Weapon 
+      (
         id INT PRIMARY KEY,
         name TEXT NOT NULL,
         altFireId INT,
         traitsId INT,
         level INT,
 
-        FOREIGNKEY (altfireId),
-        FOREIGNKEY (traitsId),
+        FOREIGN KEY (altfireId) REFERENCES Altfire(id),
+        FOREIGN KEY (traitsId) REFERENCES Trait(id)
       );
       """;
 
@@ -114,7 +115,7 @@ class DatabaseHelper {
 
   static const towerRunTable = """
         CREATE TABLE TowerRun (
-      id INT PRIMARY KEY AUTO_INCREMENT, -- Assuming an auto-incrementing primary key
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       scoutName TEXT NOT NULL,
       weaponId INT,
       score INT NOT NULL,
@@ -125,8 +126,6 @@ class DatabaseHelper {
       room INT NOT NULL,
       platform TEXT NOT NULL,
       dateStarted DATETIME NOT NULL,
-    -- Add columns for other related entities (if they have unique identifiers)
-    -- For example, assuming 'Artifact', 'Parasite', 'Stats', 'Malfunction', 'Combat', 'Explorer', 'Skill', 'Objectives' have their own tables with 'id' as their primary key
       artifactId INT,
       parasiteId INT,
       statsId INT,
@@ -150,7 +149,7 @@ class DatabaseHelper {
   Future<Database> _getDB() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    return await openDatabase(join(await getDatabasesPath(), _dbName),
+    return await openDatabase(join(await getDatabasesPath(), "TowerRun"),
         onCreate: (db, version) async {
       await db.execute(altFireTable);
       await db.execute(traitTable);
