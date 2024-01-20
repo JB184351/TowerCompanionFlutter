@@ -16,7 +16,6 @@ import 'package:tower_companion_android/models/tower_run.dart';
 
 class DatabaseHelper {
   static const int _version = 1;
-  static const String _dbName = "tower_run.db";
   static const altFireTable = """
       CREATE TABLE Altfire 
       (
@@ -168,7 +167,38 @@ class DatabaseHelper {
   Future<void> insertTowerRun(TowerRun run) async {
     final db = await _getDB();
 
-    await db.insert(_dbName, run.toMap(),
+    await db.insert("Altfire", run.weapon.altFire.toMap());
+
+    for (var i = 0; i < run.weapon.traits.length; i++) {
+      await db.insert("Trait", run.weapon.traits[i].toMap());
+    }
+
+    await db.insert("Weapon", run.weapon.toMap());
+
+    // List<Artifact> artifacts =
+    //     run.artifacts?.where((item) => item != null).toList() ?? [];
+
+    // for (var i = 0; i < artifacts.length; i++) {
+    //   await db.insert("Artifact", artifacts[i].toMap());
+    // }
+
+    // List<Parasite> parasites =
+    //     run.parasites?.where((item) => item != null).toList() ?? [];
+
+    // for (var i = 0; i < parasites.length; i++) {
+    //   await db.insert("Parasite", parasites[i].toMap());
+    // }
+
+    // await db.insert("Stat", run.stats.toMap());
+
+    // List<Malfunction> malfunctions =
+    //     run.malfunctions?.where((item) => item != null).toList() ?? [];
+
+    // for (var i = 0; i < malfunctions.length; i++) {
+    //   await db.insert("Malfunction", malfunctions[i].toMap());
+    // }
+
+    await db.insert("TowerRun", run.toMap(),
         conflictAlgorithm: ConflictAlgorithm.ignore);
   }
 
@@ -205,12 +235,13 @@ class DatabaseHelper {
   Future<void> updateRun(TowerRun run) async {
     final db = await _getDB();
 
-    await db.update(_dbName, run.toMap(), where: 'id = ?', whereArgs: [run.id]);
+    await db
+        .update("TowerRun", run.toMap(), where: 'id = ?', whereArgs: [run.id]);
   }
 
   Future<void> deleteRun(int id) async {
     final db = await _getDB();
 
-    await db.delete(_dbName, where: 'id = ?', whereArgs: [id]);
+    await db.delete("TowerRun", where: 'id = ?', whereArgs: [id]);
   }
 }

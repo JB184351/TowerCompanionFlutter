@@ -132,4 +132,10 @@ class Parasite {
       }
     }
   }
+
+  Map<String, dynamic> toMap() => {
+        'name': name,
+        'positiveDescription': positiveDescription,
+        'negativeDescription': negativeDescription
+      };
 }

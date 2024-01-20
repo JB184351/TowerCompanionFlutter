@@ -72,6 +72,9 @@ enum AltFire {
     return getAllAltFires().map((altFire) => altFire.name).toList();
   }
 
+  Map<String, dynamic> toMap() =>
+      {'name': name, 'level': level, 'altFireDescription': altFireDescription};
+
   String getAltFireDescription(String altfireName) {
     final allAltfires = getAllAltFires();
     try {

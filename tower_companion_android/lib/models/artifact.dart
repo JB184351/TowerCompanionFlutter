@@ -87,4 +87,7 @@ enum Artifact {
   final String artifactDescription;
 
   const Artifact({required this.name, required this.artifactDescription});
+
+  Map<String, dynamic> toMap() =>
+      {'name': name, 'artifactDescription': artifactDescription};
 }

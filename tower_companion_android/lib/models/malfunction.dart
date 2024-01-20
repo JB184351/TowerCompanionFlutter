@@ -39,6 +39,12 @@ class Malfunction {
 
     return permanentMalfunctions;
   }
+
+  Map<String, dynamic> toMap() => {
+        'malfunctionDescription': malfunctionDescription,
+        'conditionToRemove': conditionToRemove,
+        'malfunctionType': malfunctionType,
+      };
 }
 
 class MalfunctionTable {
