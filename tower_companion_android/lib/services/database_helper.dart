@@ -167,7 +167,11 @@ class DatabaseHelper {
   Future<void> insertTowerRun(TowerRun run) async {
     final db = await _getDB();
 
-    await db.insert("Altfire", run.weapon.altFire.toMap());
+    try {
+      await db.insert("Altfire", run.weapon.altFire.toMap());
+    } catch (e) {
+      print("Error inserting data: $e");
+    }
 
     for (var i = 0; i < run.weapon.traits.length; i++) {
       await db.insert("Trait", run.weapon.traits[i].toMap());
