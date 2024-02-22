@@ -1,22 +1,14 @@
 import 'AltFire.dart';
 import 'Trait.dart';
 
-
 class Weapon {
-    String name = "";
-    AltFire altFire = AltFire("Blast Shell", 3, "Lobs a grenade-light projectile that explodes on contact with an enemy, or after enough time has passed.");
-    List<Trait> traits = [];
-    int level = 1;
+  String name = "";
+  AltFire altFire = AltFire.blastShell;
+  List<Trait> traits = [];
+  int level = 1;
 
-    Weapon(this.name, this.altFire, this.traits, this.level);
+  Weapon(this.name, this.altFire, this.traits, this.level);
+
+  Map<String, dynamic> toMap() =>
+      {'name': name, 'altFire': altFire, 'traits': traits, 'level': level};
 }
-
-/*
-
-struct Weapon: Codable {
-    var name: String
-    var altFire: AltFire
-    var traits: [Trait]
-    var level: Int
-}
-*/
