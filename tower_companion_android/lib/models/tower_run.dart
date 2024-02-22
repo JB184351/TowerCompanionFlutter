@@ -8,6 +8,7 @@ import 'skill.dart';
 import 'explorer.dart';
 import 'objectives.dart';
 import 'dart:async';
+import 'package:floor/floor.dart';
 
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
