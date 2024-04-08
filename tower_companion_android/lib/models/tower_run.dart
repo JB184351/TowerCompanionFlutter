@@ -29,5 +29,24 @@ class TowerRun {
   DateTime dateStarted;
   DateTime dateCompleted;
 
-  TowerRun(this.scoutName, this.weapon, this.artifacts, this.parasites, this.stats, this.malfunctions, this.score, this.finalMultiplier, this.averageMultiplier, this.highestMultiplier, this.phase, this.room, this.platform, this.combat, this.explorer, this.skill, this.objectives, this.dateStarted, this.dateCompleted); 
+  TowerRun(
+      this.scoutName,
+      this.weapon,
+      this.artifacts,
+      this.parasites,
+      this.stats,
+      this.malfunctions,
+      this.score,
+      this.finalMultiplier,
+      this.averageMultiplier,
+      this.highestMultiplier,
+      this.phase,
+      this.room,
+      this.platform,
+      this.combat,
+      this.explorer,
+      this.skill,
+      this.objectives,
+      this.dateStarted,
+      this.dateCompleted);
 }
