@@ -1,9 +1,10 @@
-class Objectives {
-  int pylioidsEliminated;
-  int algosDefeated;
-  int algosFinalFormedDefeated;
-  int algosInfinityFormDefeated;
+import 'package:isar/isar.dart';
+part 'objectives.g.dart';
 
-  Objectives(this.pylioidsEliminated, this.algosDefeated,
-      this.algosFinalFormedDefeated, this.algosInfinityFormDefeated);
+@embedded
+class Objectives {
+  int pylioidsEliminated = 0;
+  int algosDefeated = 0;
+  int algosFinalFormedDefeated = 0;
+  int algosInfinityFormDefeated = 0;
 }

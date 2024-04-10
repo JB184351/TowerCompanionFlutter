@@ -1,12 +1,10 @@
-class Combat {
-  int weakPointKills;
-  int meleeKills;
-  int hostilesEliminated;
-  int malformedHostilesEliminated;
+import 'package:isar/isar.dart';
+part 'combat.g.dart';
 
-  Combat(
-      {this.weakPointKills = 0,
-      required this.meleeKills,
-      required this.hostilesEliminated,
-      required this.malformedHostilesEliminated});
+@embedded
+class Combat {
+  int weakPointKills = 0;
+  int meleeKills = 0;
+  int hostilesEliminated = 0;
+  int malformedHostilesEliminated = 0;
 }

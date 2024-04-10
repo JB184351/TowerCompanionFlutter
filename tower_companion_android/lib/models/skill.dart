@@ -1,9 +1,10 @@
-class Skill {
-  int perfectFloors;
-  int consecutivePerfectFloors;
-  double peakAdrenaline;
-  int midairMelee;
+import 'package:isar/isar.dart';
+part 'skill.g.dart';
 
-  Skill(this.perfectFloors, this.consecutivePerfectFloors, this.peakAdrenaline,
-      this.midairMelee);
+@embedded
+class Skill {
+  int perfectFloors = 0;
+  int consecutivePerfectFloors = 0;
+  double peakAdrenaline = 0.0;
+  int midairMeleeKills = 0;
 }

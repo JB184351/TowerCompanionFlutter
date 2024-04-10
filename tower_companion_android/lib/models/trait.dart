@@ -1,12 +1,11 @@
-class Trait {
-  String name;
-  String traitDescription;
-  int level;
+import 'package:isar/isar.dart';
+part 'trait.g.dart';
 
-  Trait(
-      {required this.name,
-      required this.traitDescription,
-      required this.level});
+@embedded
+class Trait {
+  String name = "";
+  String traitDescription = "";
+  int level = 0;
 
   static String getWeaponTraitDescription(String weaponName, String trait) {
     switch (weaponName) {

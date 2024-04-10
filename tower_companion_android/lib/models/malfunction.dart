@@ -1,12 +1,14 @@
+import 'package:isar/isar.dart';
+part 'malfunction.g.dart';
+
 enum MalfunctionType { normal, permanent }
 
+@embedded
 class Malfunction {
-  String malfunctionDescription;
-  String? conditionToRemove;
-  MalfunctionType malfunctionType;
-
-  Malfunction(this.malfunctionDescription, this.conditionToRemove,
-      this.malfunctionType);
+  String malfunctionDescription = "";
+  String? conditionToRemove = "";
+  @enumerated
+  MalfunctionType malfunctionType = MalfunctionType.normal;
 
   static List<String> getAllPermanentMalfunctions() {
     String obolitesDisappear = "Obolites disappear 1.5s faster.";

@@ -1,9 +1,10 @@
-class Explorer {
-  int floorsCleared;
-  int silphiumFound;
-  int obolitesCollected;
-  int calibratorsCollected;
+import 'package:isar/isar.dart';
+part 'explorer.g.dart';
 
-  Explorer(this.floorsCleared, this.silphiumFound, this.obolitesCollected,
-      this.calibratorsCollected);
+@embedded
+class Explorer {
+  int floorsCleared = 0;
+  int silphiumFound = 0;
+  int obolitesCollected = 0;
+  int calibratorsCollected = 0;
 }
