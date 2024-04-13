@@ -15,7 +15,7 @@ part 'tower_run.g.dart';
 class TowerRun {
   Id id = Isar.autoIncrement;
   String scoutName = "";
-  // Weapon weapon = Weapon();
+  Weapon weapon = Weapon();
   List<Artifact>? artifacts;
   List<Parasite>? parasites;
   Stats stats = Stats();
@@ -33,25 +33,4 @@ class TowerRun {
   Objectives? objectives;
   DateTime dateStarted = DateTime.now();
   DateTime dateCompleted = DateTime.now();
-
-  // TowerRun(
-  //     this.scoutName,
-  //     this.weapon,
-  //     this.artifacts,
-  //     this.parasites,
-  //     this.stats,
-  //     this.malfunctions,
-  //     this.score,
-  //     this.finalMultiplier,
-  //     this.averageMultiplier,
-  //     this.highestMultiplier,
-  //     this.phase,
-  //     this.room,
-  //     this.platform,
-  //     this.combat,
-  //     this.explorer,
-  //     this.skill,
-  //     this.objectives,
-  //     this.dateStarted,
-  //     this.dateCompleted);
 }
