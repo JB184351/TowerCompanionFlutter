@@ -9,6 +9,7 @@ import 'explorer.dart';
 import 'objectives.dart';
 
 class TowerRun {
+  final int id;
   String scoutName = "";
   Weapon weapon;
   List<Artifact>? artifacts;
@@ -30,6 +31,7 @@ class TowerRun {
   DateTime dateCompleted;
 
   TowerRun(
+      this.id,
       this.scoutName,
       this.weapon,
       this.artifacts,

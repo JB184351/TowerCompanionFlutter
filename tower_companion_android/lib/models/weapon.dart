@@ -1,9 +1,12 @@
+import 'package:tower_companion_android/models/altfire_model.dart';
+
 import 'AltFire.dart';
 import 'Trait.dart';
 
 class Weapon {
   String name = "";
-  AltFire altFire = AltFire.blastShell;
+  AltFire_Model altFire = AltFire_Model(AltFire.blastShell.name,
+      AltFire.blastShell.level, AltFire.blastShell.altFireDescription);
   List<Trait> traits = [];
   int level = 1;
 

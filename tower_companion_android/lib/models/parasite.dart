@@ -77,7 +77,7 @@ class Parasite {
 
   for (var negativePassivePrefix in negativePassivePrefixes.entries) {
     for (var positivePassiveSuffix in positivePassiveSuffixes.entries) {
-      String parasiteName = negativePassivePrefix.key + " " + positivePassiveSuffix.key;
+      String parasiteName = "${negativePassivePrefix.key} ${positivePassiveSuffix.key}";
       Parasite parasite = Parasite(
         parasiteName,
         positivePassiveSuffix.value,
@@ -108,7 +108,7 @@ class Parasite {
 
   for (var negativeActivePrefix in negativeActivePrefixes.entries) {
     for (var positiveActiveSuffix in positiveActiveSuffixes.entries) {
-      String parasiteName = negativeActivePrefix.key + " " + positiveActiveSuffix.key;
+      String parasiteName = "${negativeActivePrefix.key} ${positiveActiveSuffix.key}";
       Parasite parasite = Parasite(
         parasiteName,
         positiveActiveSuffix.value,
