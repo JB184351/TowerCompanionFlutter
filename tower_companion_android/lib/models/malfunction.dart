@@ -1,6 +1,8 @@
 enum MalfunctionType { normal, permanent }
 
 class Malfunction {
+  int? id;
+  int? towerRunId;
   String malfunctionDescription;
   String? conditionToRemove;
   MalfunctionType malfunctionType;

@@ -1,4 +1,5 @@
 class Trait {
+  int? id;
   String name;
   String traitDescription;
   int level;

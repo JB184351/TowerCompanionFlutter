@@ -1,4 +1,6 @@
 class Combat {
+  int? id;
+  int? towerRunId;
   int weakPointKills;
   int meleeKills;
   int hostilesEliminated;

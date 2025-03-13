@@ -1,4 +1,6 @@
 class Explorer {
+  int? id;
+  int? towerRunId;
   int floorsCleared;
   int silphiumFound;
   int obolitesCollected;

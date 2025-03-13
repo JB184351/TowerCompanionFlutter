@@ -1,9 +1,11 @@
 class Stats {
+  int? id;
+  int? towerRunId;
   double weaponDamage;
   double protection;
-  double profieiency;
+  double proficiency;
   double altFireCooldown;
 
-  Stats(this.weaponDamage, this.protection, this.profieiency,
+  Stats(this.weaponDamage, this.protection, this.proficiency,
       this.altFireCooldown);
 }

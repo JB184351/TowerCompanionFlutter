@@ -1,4 +1,6 @@
 class Objectives {
+  int? id;
+  int? towerRunId;
   int pylioidsEliminated;
   int algosDefeated;
   int algosFinalFormedDefeated;
